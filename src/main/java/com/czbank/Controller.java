@@ -11,6 +11,7 @@ import javafx.stage.FileChooser;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
 import org.apache.poi.ss.usermodel.*;
+import org.apache.poi.ss.util.CellAddress;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -71,7 +72,9 @@ public class Controller implements Initializable {
         Sheet sheet = workbook.getSheetAt(0);
 
 
-
+        CellAddress address = new CellAddress("B6");
+        logger.info(address.getRow()+":"+address.getColumn());
+        logger.info("B6:"+sheet.getRow(address.getRow()).getCell(address.getColumn()).getStringCellValue());
         int firstRowNum = sheet.getFirstRowNum();
         int lastRowNum = sheet.getLastRowNum();
         for (int rowNum = firstRowNum;rowNum <=lastRowNum;rowNum++){
