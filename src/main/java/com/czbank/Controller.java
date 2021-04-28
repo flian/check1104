@@ -8,10 +8,14 @@ import javafx.scene.control.CheckBox;
 import javafx.scene.control.TextField;
 import javafx.stage.DirectoryChooser;
 import javafx.stage.FileChooser;
+import org.apache.poi.hssf.usermodel.HSSFSheet;
+import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
+import org.apache.poi.ss.usermodel.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.File;
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -59,7 +63,29 @@ public class Controller implements Initializable {
     }
 
     @FXML
-    public void run(ActionEvent event){
+    public void run(ActionEvent event) throws IOException, InvalidFormatException {
         logger.info("start process rules");
+        logger.info("start process rule file:"+rules.getText());
+        File checkRules = new File(rules.getText());
+        Workbook workbook = WorkbookFactory.create(checkRules);
+        Sheet sheet = workbook.getSheetAt(0);
+
+
+
+        int firstRowNum = sheet.getFirstRowNum();
+        int lastRowNum = sheet.getLastRowNum();
+        for (int rowNum = firstRowNum;rowNum <=lastRowNum;rowNum++){
+            Row row = sheet.getRow(rowNum);
+            if(row == null){
+                logger.info("null row, skip!");
+                continue;
+            }
+            int firstCellNum = row.getFirstCellNum();
+            int lastCellNum = row.getLastCellNum();
+            for(int celNum=firstCellNum;celNum<lastCellNum;celNum++){
+                Cell cell = row.getCell(celNum);
+                logger.info(cell.getStringCellValue());
+            }
+        }
     }
 }
