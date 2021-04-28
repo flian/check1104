@@ -23,13 +23,11 @@
          </children>
       </HBox>
 
-      <HBox layoutX="135.0" layoutY="345.0" prefHeight="22.0" prefWidth="141.0">
-         <children>
-            <Button id="runBtn" mnemonicParsing="false" onAction="#run" text="运行" />
-         </children>
-      </HBox>
-      <Button layoutX="395.0" layoutY="345.0" mnemonicParsing="false" text="取消" />
-      <TextArea fx:id="outputLog" layoutX="63.0" layoutY="142.0" prefHeight="200.0" prefWidth="500.0" />
+      <HBox layoutX="135.0" layoutY="345.0" prefHeight="22.0" prefWidth="141.0" />
+      <Button layoutX="395.0" layoutY="425.0" mnemonicParsing="false" text="取消" />
+      <TextArea fx:id="outputLog" layoutX="177.0" layoutY="142.0" prefHeight="266.0" prefWidth="380.0" />
+      <Button id="runBtn" layoutX="131.0" layoutY="437.0" mnemonicParsing="false" onAction="#run" text="运行" />
+      <Label layoutX="22.0" layoutY="142.0" prefHeight="14.0" prefWidth="149.0" text="校验结果:" />
 
    </children>
 </Pane>

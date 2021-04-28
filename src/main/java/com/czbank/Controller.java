@@ -1,15 +1,15 @@
 package com.czbank;
 
+import com.czbank.rules.Rule;
+import com.czbank.rules.RuleManager;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
-import javafx.scene.control.CheckBox;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.stage.DirectoryChooser;
 import javafx.stage.FileChooser;
-import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.ss.util.CellAddress;
@@ -19,6 +19,7 @@ import org.slf4j.LoggerFactory;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.util.List;
 import java.util.ResourceBundle;
 
 
@@ -71,6 +72,10 @@ public class Controller implements Initializable {
     public void run(ActionEvent event) throws IOException, InvalidFormatException {
         logger.info("start process rules");
         logger.info("start process rule file:"+rules.getText());
+
+        RuleManager ruleManager = new RuleManager();
+        List<Rule> excelRules = ruleManager.splitRuleFromExcel(rules.getText());
+
         File checkRules = new File(rules.getText());
         Workbook workbook = WorkbookFactory.create(checkRules);
         Sheet sheet = workbook.getSheetAt(0);
