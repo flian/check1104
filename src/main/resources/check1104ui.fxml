@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<Pane fx:id="root" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="484.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <HBox layoutX="27.0" layoutY="60.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="50.0" prefWidth="563.0">
+         <children>
+            <Label prefHeight="14.0" prefWidth="147.0" text="规则文件: " />
+            <TextField fx:id="rules" prefHeight="22.0" prefWidth="333.0" text="" />
+            <Button id="sourceBrowserBtn" mnemonicParsing="false" onAction="#chooseRules" text="浏览.." />
+         </children>
+      </HBox>
+      <HBox layoutX="27.0" layoutY="100.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="50.0" prefWidth="557.0">
+         <children>
+            <Label prefHeight="14.0" prefWidth="149.0" text="待校验目录:" />
+            <TextField fx:id="sourceDic" prefHeight="22.0" prefWidth="334.0" text="" />
+            <Button id="descBrowserBtn" mnemonicParsing="false" onAction="#chooseSourceDic" text="浏览.." />
+         </children>
+      </HBox>
+
+      <HBox layoutX="135.0" layoutY="345.0" prefHeight="22.0" prefWidth="141.0">
+         <children>
+            <Button id="runBtn" mnemonicParsing="false" onAction="#run" text="运行" />
+         </children>
+      </HBox>
+      <Button layoutX="395.0" layoutY="345.0" mnemonicParsing="false" text="取消" />
+
+   </children>
+</Pane>
