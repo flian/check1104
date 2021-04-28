@@ -5,6 +5,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.control.CheckBox;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.stage.DirectoryChooser;
 import javafx.stage.FileChooser;
@@ -33,6 +34,8 @@ public class Controller implements Initializable {
     @FXML
     private TextField sourceDic;
 
+    @FXML
+    private TextArea outputLog;
 
     private DirectoryChooser chooser;
 
@@ -46,6 +49,7 @@ public class Controller implements Initializable {
         if(fileChooser == null){
             fileChooser=new FileChooser();
         }
+        outputLog.setEditable(false);
     }
 
     @FXML
@@ -74,7 +78,10 @@ public class Controller implements Initializable {
 
         CellAddress address = new CellAddress("B6");
         logger.info(address.getRow()+":"+address.getColumn());
-        logger.info("B6:"+sheet.getRow(address.getRow()).getCell(address.getColumn()).getStringCellValue());
+        outputLog.appendText(address.getRow()+":"+address.getColumn()+"\n");
+        String addressValue = "B6:"+sheet.getRow(address.getRow()).getCell(address.getColumn()).getStringCellValue();
+        logger.info(addressValue+"\n");
+        outputLog.appendText(addressValue);
         int firstRowNum = sheet.getFirstRowNum();
         int lastRowNum = sheet.getLastRowNum();
         for (int rowNum = firstRowNum;rowNum <=lastRowNum;rowNum++){
