@@ -1,6 +1,6 @@
 package com.czbank.rules;
 
-import com.czbank.rules.impl.EqualRuleChecker;
+import com.czbank.rules.impl.*;
 import javafx.scene.control.TextArea;
 import org.apache.poi.ss.usermodel.*;
 
@@ -21,6 +21,10 @@ public class RuleManager {
 
     public RuleManager() {
         checkers.add(new EqualRuleChecker());
+        checkers.add(new GreateRuleChecker());
+        checkers.add(new LessRuleChecker());
+        checkers.add(new GreateThanEqualRuleChecker());
+        checkers.add(new LessThanEqualRuleChecker());
     }
 
     public void validateRule(List<Rule> rules, String excelFodler, TextArea textArea) {
