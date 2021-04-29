@@ -1,5 +1,7 @@
 package com.czbank.rules;
 
+import com.czbank.rules.impl.EqualRuleChecker;
+import javafx.scene.control.TextArea;
 import org.apache.poi.ss.usermodel.*;
 
 import java.io.File;
@@ -15,6 +17,22 @@ import java.util.List;
  * Time: 3:14 PM
  */
 public class RuleManager {
+    private List<RuleChecker> checkers = new ArrayList<>();
+
+    public RuleManager() {
+        checkers.add(new EqualRuleChecker());
+    }
+
+    public void validateRule(List<Rule> rules, String excelFodler, TextArea textArea) {
+        for (Rule rule : rules) {
+            for (RuleChecker ruleChecker : checkers) {
+                if (ruleChecker.support(rule)) {
+                    ruleChecker.validate(rule, excelFodler,textArea);
+                }
+            }
+        }
+    }
+
     public List<Rule> splitRuleFromExcel(String ruleFile) throws IOException {
         List<Rule> result = new ArrayList<>();
         Workbook workbook = WorkbookFactory.create(new File(ruleFile));

@@ -11,8 +11,6 @@ import javafx.scene.control.TextField;
 import javafx.stage.DirectoryChooser;
 import javafx.stage.FileChooser;
 import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
-import org.apache.poi.ss.usermodel.*;
-import org.apache.poi.ss.util.CellAddress;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -70,37 +68,9 @@ public class Controller implements Initializable {
 
     @FXML
     public void run(ActionEvent event) throws IOException, InvalidFormatException {
-        logger.info("start process rules");
-        logger.info("start process rule file:"+rules.getText());
-
         RuleManager ruleManager = new RuleManager();
         List<Rule> excelRules = ruleManager.splitRuleFromExcel(rules.getText());
+        ruleManager.validateRule(excelRules,sourceDic.getText(),outputLog);
 
-        File checkRules = new File(rules.getText());
-        Workbook workbook = WorkbookFactory.create(checkRules);
-        Sheet sheet = workbook.getSheetAt(0);
-
-
-        CellAddress address = new CellAddress("B6");
-        logger.info(address.getRow()+":"+address.getColumn());
-        outputLog.appendText(address.getRow()+":"+address.getColumn()+"\n");
-        String addressValue = "B6:"+sheet.getRow(address.getRow()).getCell(address.getColumn()).getStringCellValue();
-        logger.info(addressValue+"\n");
-        outputLog.appendText(addressValue);
-        int firstRowNum = sheet.getFirstRowNum();
-        int lastRowNum = sheet.getLastRowNum();
-        for (int rowNum = firstRowNum;rowNum <=lastRowNum;rowNum++){
-            Row row = sheet.getRow(rowNum);
-            if(row == null){
-                logger.info("null row, skip!");
-                continue;
-            }
-            int firstCellNum = row.getFirstCellNum();
-            int lastCellNum = row.getLastCellNum();
-            for(int celNum=firstCellNum;celNum<lastCellNum;celNum++){
-                Cell cell = row.getCell(celNum);
-                logger.info(cell.getStringCellValue());
-            }
-        }
     }
 }
