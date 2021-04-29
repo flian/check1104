@@ -73,4 +73,8 @@ public class Controller implements Initializable {
         ruleManager.validateRule(excelRules,sourceDic.getText(),outputLog);
 
     }
+    @FXML
+    public void clean(ActionEvent event){
+        outputLog.clear();
+    }
 }
