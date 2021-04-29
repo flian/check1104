@@ -7,6 +7,7 @@ import javafx.scene.control.TextArea;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -36,7 +37,7 @@ public class EqualRuleChecker implements RuleChecker {
             // 和相等
             RuleItem firstItem = rule.getRuleItemList().get(0);
             boolean validateSuccess = true;
-            double firstItemVal = getValue(excelFolder, firstItem.getTableName(), firstItem.getCoordinate());
+            BigDecimal firstItemVal = getValue(excelFolder, firstItem.getTableName(), firstItem.getCoordinate());
             Map<Integer, List<RuleItem>> itemGroup = new HashMap<>();
             for (int i = 1; i < rule.getRuleItemList().size(); i++) {
                 RuleItem item = rule.getRuleItemList().get(i);
@@ -47,11 +48,11 @@ public class EqualRuleChecker implements RuleChecker {
             }
 
             for (Integer group : itemGroup.keySet()) {
-                double sum = 0.0;
+                BigDecimal sum = BigDecimal.ZERO;
                 for (RuleItem item : itemGroup.get(group)) {
-                    sum = sum + getValue(excelFolder, item.getTableName(), item.getCoordinate());
+                    sum = sum.add(getValue(excelFolder, item.getTableName(), item.getCoordinate()));
                 }
-                if (firstItemVal != sum) {
+                if (!firstItemVal.equals(sum)) {
                     validateSuccess = false;
                     String msg = rule.getRuleName() + "校验失败.分组" + group + "\n";
                     logger.error(msg);
@@ -67,11 +68,11 @@ public class EqualRuleChecker implements RuleChecker {
             //单纯相等
             RuleItem firstItem = rule.getRuleItemList().get(0);
             boolean validateSuccess = true;
-            double firstItemVal = getValue(excelFolder, firstItem.getTableName(), firstItem.getCoordinate());
+            BigDecimal firstItemVal = getValue(excelFolder, firstItem.getTableName(), firstItem.getCoordinate());
             for (int i = 1; i < rule.getRuleItemList().size(); i++) {
                 RuleItem item = rule.getRuleItemList().get(i);
-                double itemValue = getValue(excelFolder, item.getTableName(), item.getCoordinate());
-                if (itemValue != firstItemVal) {
+                BigDecimal itemValue = getValue(excelFolder, item.getTableName(), item.getCoordinate());
+                if (!itemValue.equals(firstItemVal)) {
                     validateSuccess = false;
                     String msg = rule.getRuleName() + "校验失败." + item.getTableName() + "," + item.getCoordinate() + "\n";
                     logger.error(msg);

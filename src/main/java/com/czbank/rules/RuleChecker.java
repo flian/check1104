@@ -1,13 +1,13 @@
 package com.czbank.rules;
 
 import javafx.scene.control.TextArea;
-import org.apache.poi.ss.usermodel.Sheet;
-import org.apache.poi.ss.usermodel.Workbook;
-import org.apache.poi.ss.usermodel.WorkbookFactory;
+import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.ss.util.CellAddress;
+import org.apache.poi.xssf.usermodel.XSSFCell;
 
 import java.io.File;
 import java.io.IOException;
+import java.math.BigDecimal;
 
 /**
  * Created with IntelliJ IDEA.
@@ -22,7 +22,7 @@ public interface RuleChecker {
 
     public void validate(Rule rule, String excelFolder, TextArea textArea);
 
-    default double getValue(String excelFolder, String excelFileName, String coordinate) {
+    default BigDecimal getValue(String excelFolder, String excelFileName, String coordinate) {
         File folder = new File(excelFolder);
         if (!(folder.exists() && folder.isDirectory())) {
             throw new RuntimeException("目录不存在");
@@ -41,6 +41,8 @@ public interface RuleChecker {
         }
         Sheet sheet = workbook.getSheetAt(0);
         CellAddress address = new CellAddress(coordinate);
-        return sheet.getRow(address.getRow()).getCell(address.getColumn()).getNumericCellValue();
+        Cell cell = sheet.getRow(address.getRow()).getCell(address.getColumn());
+        cell.setCellType(CellType.STRING);
+        return new BigDecimal(cell.getStringCellValue());
     }
 }
