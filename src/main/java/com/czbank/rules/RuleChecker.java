@@ -28,7 +28,7 @@ public interface RuleChecker {
             throw new RuntimeException("目录不存在");
         }
         File[] files = folder.listFiles(((dir, name) -> {
-            return name.endsWith(excelFileName+".xls") || name.endsWith(excelFileName+".xlsx");
+            return name.endsWith(excelFileName.trim()+".xls") || name.endsWith(excelFileName.trim()+".xlsx");
         }));
         if (files.length != 1) {
             throw new RuntimeException("找不到匹配的文件" + excelFileName);
