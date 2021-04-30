@@ -17,7 +17,7 @@ import java.util.List;
  * Time: 3:14 PM
  */
 public class RuleManager {
-    private List<RuleChecker> checkers = new ArrayList<>();
+    private List<RuleChecker> checkers = new ArrayList<RuleChecker>();
 
     public RuleManager() {
         checkers.add(new EqualRuleChecker());
@@ -38,7 +38,7 @@ public class RuleManager {
     }
 
     public List<Rule> splitRuleFromExcel(String ruleFile) throws IOException {
-        List<Rule> result = new ArrayList<>();
+        List<Rule> result = new ArrayList<Rule>();
         Workbook workbook = WorkbookFactory.create(new File(ruleFile));
         Sheet sheet = workbook.getSheetAt(0);
         int lastRowNum = sheet.getLastRowNum();
