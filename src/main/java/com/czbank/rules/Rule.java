@@ -13,7 +13,7 @@ import java.util.List;
 public class Rule {
     private String ruleName;
     private String validateMethod;
-    private List<RuleItem> ruleItemList = new ArrayList<>();
+    private List<RuleItem> ruleItemList = new ArrayList<RuleItem>();
 
     public String getRuleName() {
         return ruleName;
